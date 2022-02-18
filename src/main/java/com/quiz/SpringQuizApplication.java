@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
-@MapperScan(basePackages = "com.quiz.*")  // mapper scan 추가!!!
+@MapperScan(basePackages = "com.marobiana.*")  // mapper scan 추가!!!
 //@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
 @SpringBootApplication
 public class SpringQuizApplication {

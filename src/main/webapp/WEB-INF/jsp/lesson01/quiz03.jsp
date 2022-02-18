@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>lesson01quiz03</title>
+<title>Quiz03</title>
 </head>
 <body>
 	<h1>리스트 기억 나시죠?</h1>

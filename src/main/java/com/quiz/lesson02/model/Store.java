@@ -2,6 +2,7 @@ package com.quiz.lesson02.model;
 
 import java.util.Date;
 
+// 일반 자바 bean
 public class Store {
 
 	private int id;

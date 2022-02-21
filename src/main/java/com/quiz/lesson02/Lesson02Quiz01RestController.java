@@ -9,15 +9,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.quiz.lesson02.bo.StoreBO;
 import com.quiz.lesson02.model.Store;
 
-@RestController
+@RestController //@Controller + @ResponseBody => 데이터를 응답값(Response)으로 내린다.
 public class Lesson02Quiz01RestController {
 
 	@Autowired
-	private StoreBO storeBo;
+	private StoreBO storeBO;
 	
 	// 요청 URL: http://localhost/lesson02/quiz01
 	@RequestMapping("/lesson02/quiz01")
 	public List<Store> quiz01() {
-		return storeBo.getStoreList();
+		List<Store> storeList = storeBO.getStoreList();
+		return storeList;
 	}
 }

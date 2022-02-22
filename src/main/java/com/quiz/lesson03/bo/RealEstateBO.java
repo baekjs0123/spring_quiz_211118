@@ -19,12 +19,14 @@ public class RealEstateBO {
 	}
 	
 	public List<RealEstate> getRealEstateListByRentPrice(int rentPrice) {
-		List<RealEstate> realEstateListByRentPrice = realEstateDAO.selectRealEstateListByRentPrice(rentPrice);
-		return realEstateListByRentPrice;
+		return realEstateDAO.selectRealEstateListByRentPrice(rentPrice);
 	}
 	
-	public List<RealEstate> getRealEstateList(int price, int area) {
-		List<RealEstate> realEstateList = realEstateDAO.selectRealEstateList(price, area);
-		return realEstateList;
+	public List<RealEstate> getRealEstateListByAreaAndPrice(int area, int price) {
+		return realEstateDAO.selectRealEstateListByAreaAndPrice(area, price);
+	}
+	
+	public int addRealEstate(RealEstate realEstate) {
+		return realEstateDAO.insertRealEstate(realEstate);
 	}
 }

@@ -20,25 +20,26 @@ public class Lesson03Quiz01RestController {
 	// 요청 URL: http://localhost/lesson03/quiz01/1?id=20
 	@RequestMapping("/1")
 	public RealEstate quiz01_1(
-			@RequestParam(value="id", defaultValue="1") int id) {
+			@RequestParam("id") int id) {
+		
 		return realEstateBO.getRealEstateById(id);
 	}
 	
 	// 요청 URL: http://localhost/lesson03/quiz01/2?rent_price=90
 	@RequestMapping("/2")
 	public List<RealEstate> quiz01_2(
-			@RequestParam(value="rent_price", defaultValue="80") int rentPrice) {
-		List<RealEstate> realEstateListByRentPrice = realEstateBO.getRealEstateListByRentPrice(rentPrice);
-		return realEstateListByRentPrice;
+			@RequestParam("rent_price") int rentPrice) {
+		
+		return realEstateBO.getRealEstateListByRentPrice(rentPrice);
 	}
 	
 	// 요청 URL: http://localhost/lesson03/quiz01/3?area=90&price=130000
 	@RequestMapping("/3")
 	public List<RealEstate> quiz01_3(
-			@RequestParam(value="price", defaultValue="100000") int price,
-			@RequestParam(value="area", defaultValue="100") int area) {
-		List<RealEstate> realEstateList = realEstateBO.getRealEstateList(price, area);
-		return realEstateList;
+			@RequestParam("area") int area,
+			@RequestParam("price") int price) {
+		
+		return realEstateBO.getRealEstateListByAreaAndPrice(area, price);
 	}
 	
 }

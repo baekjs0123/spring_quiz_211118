@@ -13,10 +13,14 @@ public class Lesson03Quiz04RestController {
 	@Autowired
 	private RealEstateBO realEstateBO;
 	// http://localhost/lesson03/quiz04/1?id=21
+	
 	@RequestMapping("/lesson03/quiz04/1")
 	public String quiz04(@RequestParam("id") int id) {
+		
+		// delete BO
 		int row = realEstateBO.deleteRealEstateById(id);
 		
+		// return
 		return "삭제 성공 : " + row;
 	}
 }

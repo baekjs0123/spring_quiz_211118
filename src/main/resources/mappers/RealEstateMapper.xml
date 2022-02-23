@@ -120,13 +120,13 @@
  			`type` = #{type}
  			, `price` = #{price}
  			, `updatedAt` = NOW()
- 			
  		WHERE
  			`id` = #{id}
  	</update>
  	
- 	<delete id="deleteRealEstateById" parameterType="com.quiz.lesson03.model.RealEstate">
- 		DELETE FROM 
+ 	<delete id="deleteRealEstateById" parameterType="int">
+ 		DELETE 
+ 		FROM 
  			`real_estate`
  		WHERE
  			`id` = #{id}

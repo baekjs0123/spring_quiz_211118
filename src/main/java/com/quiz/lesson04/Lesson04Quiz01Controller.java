@@ -43,9 +43,13 @@ public class Lesson04Quiz01Controller {
 	// 요청 URL : http://localhost/lesson04/quiz01/seller_info
 	// 요청 URL : http://localhost/lesson04/quiz01/seller_info?id=1
 	@RequestMapping("/seller_info")
-	public String sellerInfo(Model model, @RequestParam(value="id", defaultValue="6") int id) {
-		// Seller seller = sellerBO.getLastSeller();
-		Seller seller = sellerBO.getSeller(id);
+	public String sellerInfo(Model model, @RequestParam(value="id", required=false) Integer id) {
+		Seller seller = null;
+		if (id == null) {
+			seller = sellerBO.getLastSeller();
+		} else {
+			seller = sellerBO.getSeller(id);
+		}
 		model.addAttribute("seller", seller);
 		model.addAttribute("subject", "판매자 정보");
 		

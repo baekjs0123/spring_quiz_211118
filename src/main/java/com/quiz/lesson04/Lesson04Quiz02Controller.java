@@ -15,6 +15,7 @@ public class Lesson04Quiz02Controller {
 
 	@Autowired
 	private RealtorBO realtorBO;
+	
 	// 입력 form URL : http://localhost/lesson04/quiz02/1
 	@RequestMapping("/lesson04/quiz02/1")
 	public String quiz02_1() {
@@ -26,9 +27,11 @@ public class Lesson04Quiz02Controller {
 	public String addrealtor(
 			@ModelAttribute Realtor realtor,
 			Model model) {
-		// db insert
+		
+		// db insert -> 그 키가 무엇인지 받아옴
 		realtorBO.addRealtor(realtor);
-		// 추가된 공인중개사를 가져와서 Model객체에 담아둠
+		
+		// 방금 인서트 된 데이터를 db select
 		realtor  = realtorBO.getRealtorById(realtor.getId());
 				
 		model.addAttribute("subject", "공인중개사 정보");

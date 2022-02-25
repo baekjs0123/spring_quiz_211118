@@ -31,7 +31,7 @@
 				<input type="text" id="grade" name="grade" class="form-control col-5" placeholder="등급을 입력하세요 예)안심중개사">
 			</div>
 			
-			<input type="submit" class="btn btn-primary">
+			<input type="submit" class="btn btn-primary" value="추가">
 		</form>
 	</div>
 </body>

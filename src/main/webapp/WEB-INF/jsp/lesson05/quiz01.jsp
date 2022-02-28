@@ -8,22 +8,22 @@
 <title>lesson05 quiz01</title>
 </head>
 <body>
-	<h2>1. JSTL core 변수</h2>
-	<c:set var="num1">36</c:set>
+	<h1>1. JSTL core 변수</h1>
+	<c:set var="num1" value="36" />
 	<c:set var="num2">3</c:set>
 	<h3>첫번째 숫자 : ${num1}</h3>
 	<h3>두번째 숫자 : ${num2}</h3>
 	
-	<h2>2. JSTL core 연산</h2>
+	<h1>2. JSTL core 연산</h1>
 	<h3>더하기 : ${num1 + num2}</h3>
 	<h3>빼기 : ${num1 - num2}</h3>
 	<h3>곱하기 : ${num1 * num2}</h3>
 	<h3>나누기 : ${num1 / num2}</h3>
 	
-	<h2>3. JSTL core out</h2>
+	<h1>3. JSTL core out</h1>
 	<c:out value="<title>core out</title>" />
 	
-	<h2>4. JSTL core if</h2>
+	<h1>4. JSTL core if</h1>
 	<c:if test="${((num1 + num2) / 2) >= 10}">
 		<h1>${(num1 + num2) / 2}</h1>
 	</c:if>
@@ -31,9 +31,9 @@
 		<h3>${(num1 + num2) / 2}</h3>
 	</c:if>
 	
-	<h2>5. JSTL core if</h2>
-	<c:if test="${(num1 * num2) > 100}">
-		<c:out value="<script>alert('너무 큰 수 입니다.');</script>" escapeXml="false" />
+	<h1>5. JSTL core if</h1>
+	<c:if test="${num1 * num2 > 100}">
+		<c:out value="<script>alert('너무 큰 수 입니다.')</script>" escapeXml="false" />
 	</c:if>
 	
 	

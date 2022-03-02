@@ -116,20 +116,23 @@ public class Lesson05Controller {
 		return "lesson05/quiz02_2";
 	}
 	
-	@RequestMapping("/lesson05/quiz03_1")
+	@RequestMapping("/lesson05/quiz03")
 	public String quiz03_1(Model model) {
+		// 문제1
 		List<Integer> candidates = new ArrayList<>();
 		candidates.add(263001);
 		candidates.add(173942); 
 		candidates.add(563057);
-		
 		model.addAttribute("candidates", candidates);
+
+		// 총 투표인원 구하기
+		int totalCount = 0;
+		for (int i = 0; i < candidates.size(); i++) {
+			totalCount += candidates.get(i);
+		}
+		model.addAttribute("totalCount", totalCount);
 		
-		return "lesson05/quiz03_1";
-	}
-	
-	@RequestMapping("/lesson05/quiz03_2")
-	public String quiz03_2(Model model) {
+		// 문제2
 		List<Map<String, Object>> cardBills = new ArrayList<>();
 
 		Map<String, Object> cardBill = new HashMap<>();
@@ -154,6 +157,7 @@ public class Lesson05Controller {
 		cardBills.add(cardBill);
 		
 		model.addAttribute("cardBills", cardBills);
-		return "lesson05/quiz03_2";
+		
+		return "lesson05/quiz03";
 	}
 }

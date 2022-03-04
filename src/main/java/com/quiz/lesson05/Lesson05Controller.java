@@ -5,15 +5,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.quiz.lesson05.bo.WeatherHistoryBO;
 import com.quiz.lesson05.model.Member;
+import com.quiz.lesson05.model.WeatherHistory;
 
 @Controller
 public class Lesson05Controller {
 
+	@Autowired
+	private WeatherHistoryBO weatherHistoryBO;
+	
 	@RequestMapping("/lesson05/quiz01")
 	public String quiz01() {
 		return "lesson05/quiz01";
@@ -217,5 +225,32 @@ public class Lesson05Controller {
 		
 		model.addAttribute("members", members);
 		return "lesson05/quiz04";
+	}
+	
+	@RequestMapping("/lesson05/quiz05")
+	public String quiz05(Model model) {
+			
+			List<WeatherHistory> result = weatherHistoryBO.getWeatherHistoryList();
+			model.addAttribute("weatherHistory", result);
+		return "lesson05/quiz05";
+	}
+	
+	@RequestMapping("/lesson05/quiz05_1")
+	public String addWeatherHistory() {
+		return "lesson05/add_weatherHistory";
+	}
+	
+	@PostMapping("/lesson05/quiz05/add_weatherHistory")
+	public String addrealtor(
+			@ModelAttribute WeatherHistory weatherHistory,
+			Model model) {
+		
+		// db insert -> 그 키가 무엇인지 받아옴
+		//weatherHistoryBO.addWeatherHistory(weatherHistory);
+		
+		List<WeatherHistory> result = weatherHistoryBO.getWeatherHistoryList();
+		model.addAttribute("weatherHistory", result);
+				
+		return "lesson05/quiz05";
 	}
 }

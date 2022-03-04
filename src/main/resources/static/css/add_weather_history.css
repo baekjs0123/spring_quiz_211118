@@ -1,0 +1,7 @@
+@charset "UTF-8";
+#wrap {width: 1200px;}
+.content > .menu {width: 200px;}
+.content > .main {width: 1000px;}
+.footer {height: 100px;}
+.footer-logo {width: 200px;}
+

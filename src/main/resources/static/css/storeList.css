@@ -3,5 +3,6 @@
 .header {height: 300px;}
 .header .header-top {height: 150px;}
 .header .header-bottom {height: 150px;}
-.menu .store {height: 150px; border: 2px solid skyblue}
+a:hover { text-decoration:none;}
+.menu .store {height: 150px;}
 .footer {height: 100px;}

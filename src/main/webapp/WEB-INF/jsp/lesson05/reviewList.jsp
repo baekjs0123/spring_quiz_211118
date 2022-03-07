@@ -19,18 +19,42 @@
 				<h1 class="display-4 text-white">배탈의 민족</h1>
 			</div>
 			<div class="header-bottom d-flex align-items-center">
-				<span class="display-3">우리동네 가게</span>
+				<span class="display-3">${reviewList.storeName}</span>
 			</div>
 		</header>
 		<div class="contents">
-			<c:forEach items="${storeList}" var="store">
-				<a href="/lesson05/reviews?storeId=${store.id}&storeName=${store.name}">
-					<div class="store form-control mb-3 border border-info">
-						<h2 class="font-weight-bold mt-3">${store.name}</h3>
-						<h5>전화번호 : ${store.phoneNumber}</h5>
-						<h5>주소 : ${store.address}</h5>
+			<c:forEach items="${reviewList}" var="review">
+					<div class="store form-control mb-3 border border-3 border-info">
+						<span class="font-weight-bold mt-3">${review.userName}</span>
+						<c:choose>
+							<c:when test="${review.point eq 0}">
+								<img src="/image/star_empty.jpg" alt="별점">
+								<img src="/image/star_empty.jpg" alt="별점">
+								<img src="/image/star_empty.jpg" alt="별점">
+								<img src="/image/star_empty.jpg" alt="별점">
+								<img src="/image/star_empty.jpg" alt="별점">
+							</c:when>
+							<c:when test="${review.point eq 0.5}">
+								<img src="/image/star_half.jpg" alt="별점">
+								<img src="/image/star_empty.jpg" alt="별점">
+								<img src="/image/star_empty.jpg" alt="별점">
+								<img src="/image/star_empty.jpg" alt="별점">
+								<img src="/image/star_empty.jpg" alt="별점">
+							</c:when>
+							<c:when test="${review.point eq 1}">
+								<img src="/image/star_fill.jpg" alt="별점">
+								<img src="/image/star_empty.jpg" alt="별점">
+								<img src="/image/star_empty.jpg" alt="별점">
+								<img src="/image/star_empty.jpg" alt="별점">
+								<img src="/image/star_empty.jpg" alt="별점">
+							</c:when>
+						</c:choose>
+						<h6>${review.createdAt}</h6>
+						<h5>${review.review}</h5>
+						<div class="bg-secondary">
+							${review.menu}
+						</div>
 					</div>
-				</a>
 			</c:forEach>
 		</div>
 		<hr>

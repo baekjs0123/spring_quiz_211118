@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
-<mapper namespace="com.quiz.lesson06.DAO.BookmarkDAO">
+<mapper namespace="com.quiz.lesson06.dao.BookmarkDAO">
 	<insert id="insertBookmark" parameterType="map">
 		INSERT INTO `bookmark`
 		(
@@ -29,4 +29,23 @@
 		FROM
 			`bookmark`
 	</select>
+	<select id="selectBookmarkByUrl" parameterType="String" resultType="com.quiz.lesson06.model.Bookmark">
+		SELECT
+			`id`
+			,`name`
+			,`url`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`bookmark`
+		WHERE
+			`url` = #{url}
+	</select>
+	<delete id="deleteBookmarkById" parameterType="int">
+		DELETE
+		FROM
+			`bookmark`
+		WHERE
+			`id` = #{id}
+	</delete>
 </mapper>

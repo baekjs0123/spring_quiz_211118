@@ -13,58 +13,91 @@
 <body>
 	<div class="container">
 		<h1>즐겨찾기 추가하기</h1>
-		<div>
-			제목<br>
-			<input type="text" id="name" name="name" class="form-control">
+		<div class="form-group">
+			<label for="name">제목</label><br>
+			<input type="text" id="name" class="form-control">
 		</div>
-		<div class="mt-3">
-			주소<br>
-			<input type="text" id="url" name="url" class="form-control">
+		<div class="form-group">
+			<label for="url">주소</label><br>
+			<div class="d-flex"> <!-- form-inline 클래스도 사용가능 -->
+				<input type="text" id="url" class="form-control">
+				<button type="button" class="btn btn-info ml-3" id="checkDuplicationBtn">중복확인</button>
+			</div>
+			<small id="duplicationText" class="text-danger d-none">중복된 url 입니다.</small>
+			<small id="availableUrlText" class="text-success d-none">저장 가능한 url 입니다.</small>
 		</div>
 		
-		<input type="button" id="addBtn" class="btn btn-success mt-3 col-12" value="추가">
+		<input type="button" id="addBookmarkBtn" class="btn btn-success btn-block" value="추가">
 	</div>
-<script>
-$(document).ready(function() {
-	$('#addBtn').on('click', function(e) {
-		
-		let name = $('#name').val().trim();
-		if (name == '') {
-			alert("제목을 입력하세요.");
-			return;
-		}
-		
-		let url = $('#url').val().trim();
-		if (url == '') {
-			alert("주소를 입력하세요.");
-			return;
-		}
-		
-		if (url.startsWith('http') == false) {
-			alert("잘못된 주소형식입니다.")
-			return;
-		}
-		
-		$.ajax({
-			// request
-			type:"post"
-			, url:"/lesson06/quiz01/add_bookmark"
-			, data: {'name':name, 'url':url}
+	<script>
+	$(document).ready(function() {
+		$('#addBookmarkBtn').on('click', function() {
 			
-			// response
-			, success: function(data) {
-				alert(data);
-				location.href = "/lesson06/quiz01/get_bookmark_view";
+			let name = $('#name').val().trim();
+			if (name == '') {
+				alert("제목을 입력하세요.");
+				return;
 			}
-			, complete: function(data) {
-				alert("완료");
+			
+			let url = $('#url').val().trim();
+			if (url == '') {
+				alert("주소를 입력하세요.");
+				return;
 			}
-			, error: function(e) {
-				alert("에러, " +  e);
+			
+			if (url.startsWith('http://') == false && url.startsWith('https://') == false) {
+				alert("잘못된 주소형식입니다.");
+				return;
 			}
+			
+			$.ajax({
+				// request
+				type:"post"
+				, url:"/lesson06/quiz01/add_bookmark"
+				, data: {"name":name, "url":url}
+				
+				// response
+				, success: function(data) { // url에서 리턴된 json String을 object로 변환해준다.(jquery ajax가)
+					if(data.result == "success") {
+					location.href = "/lesson06/quiz01/bookmark_list_view";
+					}
+				}
+				, error: function(e) {
+					alert("에러, " +  e);
+				}
+			});
+		});
+		
+		// quiz02) 중복확인
+		$('#checkDuplicationBtn').on('click', function() {
+			//alert("중복확인");
+			let url = $('#url').val().trim();
+			if (url == '') {
+				alert("검사할 URL을 입력해주세요.");
+				return;
+			}
+			
+			$.ajax({
+				type:"post"
+				, url:"/lesson06/quiz02/check_duplication_url"
+				, data: {"url":url}
+				, success: function(data) {
+					if (data.result) { 
+						// 중복일 때
+						$('#duplicationText').removeClass('d-none');
+						$('#availableUrlText').addClass('d-none');
+					} else {
+						// 중복 아닐 때 => 사용 가능
+						$('#availableUrlText').removeClass('d-none');
+						$('#duplicationText').addClass('d-none');
+					}
+				}
+				, error: function(e) {
+					alert("중복확인에 실패했습니다. 관리자에게 문의해주세요.");
+				}
+			});
 		});
 	});
-});
-</script>
+	</script>
 </body>
 </html>

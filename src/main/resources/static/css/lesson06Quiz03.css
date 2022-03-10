@@ -1,0 +1,6 @@
+@charset "UTF-8";
+#wrap {width: 1200px; height: 1000px}
+header {height: 100px;}
+.menu {height: 40px; background-color:#E3871F;}
+.booking {margin:auto; width: 400px;}
+footer {height: 100px;}

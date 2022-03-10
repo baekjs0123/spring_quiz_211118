@@ -20,18 +20,46 @@
 					<th>No.</th>
 					<th>이름</th>
 					<th>주소</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 			<c:forEach items="${bookmarkList}" var="bookmark" varStatus="status">
 				<tr>
-					<td>${status.count}</td>
+					<td>${bookmark.id}</td>
 					<td>${bookmark.name}</td>
 					<td>${bookmark.url}</td>
+					<td><button type="button" class="delete-btn btn btn-danger" data-bookmark-id="${bookmark.id}">삭제</button></td>
 				</tr>
 			</c:forEach>
 			</tbody>
 		</table>
 	</div>
+<script>
+$(document).ready(function() {
+	$('.delete-btn').on('click', function() {
+		//alert("삭제하기");
+		// 태그 : data-bookmark-id	data- 뒤부터는 이름을 지어준다.(카멜케이스 X)
+		// 스크립트 : data("bookmark-id")
+		let id = $(this).data("bookmark-id");
+		
+		$.ajax({
+			type:"post"
+			, url:"/lesson06/quiz02/delete_bookmark"
+			, data: {"id":id}
+			, success: function(data) {
+				if(data.result == "success") {
+					location.reload();
+				} else {
+					alert(data.errorMessage);
+				}
+			}
+			, error: function(e) {
+				alert("삭제하는데 실패했습니다. 관리자에게 문의해주세요.");
+			}
+		 });
+	});
+});
+</script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package com.quiz.lesson06.DAO;
+package com.quiz.lesson06.dao;
 
 import java.util.List;
 
@@ -10,9 +10,13 @@ import com.quiz.lesson06.model.Bookmark;
 @Repository
 public interface BookmarkDAO {
 
-	public String insertBookmark(
+	public void insertBookmark(
 			@Param("name") String name,
 			@Param("url") String url);
 	
 	public List<Bookmark> selectBookmarkList();
+	
+	public Bookmark selectBookmarkByUrl(String url);
+	
+	public int deleteBookmarkById(int id);
 }

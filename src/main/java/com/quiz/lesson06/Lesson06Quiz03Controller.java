@@ -27,7 +27,10 @@ public class Lesson06Quiz03Controller {
 		List<Booking> bookingList = bookingBO.getBookingList();
 		model.addAttribute("bookingList", bookingList);
 		
-		return "lesson06/quiz03/quiz03_1template";
+		String page = "quiz03/1";
+		model.addAttribute("page", page);
+		
+		return "lesson06/quiz03/quiz03_template";
 	}
 	
 	@ResponseBody
@@ -54,7 +57,10 @@ public class Lesson06Quiz03Controller {
 		List<Booking> bookingList = bookingBO.getBookingList();
 		model.addAttribute("bookingList", bookingList);
 		
-		return "lesson06/quiz03/quiz03_2template";
+		String page = "quiz03/2";
+		model.addAttribute("page", page);
+		
+		return "lesson06/quiz03/quiz03_template";
 	}
 	
 	@ResponseBody
@@ -91,4 +97,36 @@ public class Lesson06Quiz03Controller {
 		
 		return result;
 	}
+	
+	@RequestMapping("/lesson06/quiz03/3")
+	public String bookingCheck(Model model) {
+		
+		List<Booking> bookingList = bookingBO.getBookingList();
+		model.addAttribute("bookingList", bookingList);
+		
+		String page = "quiz03/3";
+		model.addAttribute("page", page);
+		
+		return "lesson06/quiz03/quiz03_template";
+	}
+	
+	@ResponseBody
+	@PostMapping("/lesson06/quiz03/check_duplication_name_phoneNumber")
+	public Map<String, Object> checkDuplicationByNameByphoneNumber(
+			@RequestParam("name") String name,
+			@RequestParam("phoneNumber") String phoneNumber) {
+		
+		Map<String, Object> result = new HashMap<>();
+		Booking bookingCheck = bookingBO.getBookingByNameByphoneNumber(name, phoneNumber);
+		
+		if (bookingCheck == null) { //중복아님
+			result.put("result", false);
+		} else {
+			result.put("result", true);
+			result.put("bookingCheck", bookingCheck);
+		}
+		
+		return result;
+	}
+	
 }

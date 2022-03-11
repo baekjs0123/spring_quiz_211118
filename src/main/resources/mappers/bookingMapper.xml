@@ -35,7 +35,7 @@
 			,`phoneNumber`
 			,`state`
 			,`createdAt`
-			,`updatedAt
+			,`updatedAt`
 		)
 		VALUES
 		(
@@ -64,5 +64,23 @@
 			`booking`
 		WHERE
 			`date` = #{date}
+	</select>
+	<select id="selectBookingByNameByphoneNumber" parameterType="map" resultType="com.quiz.lesson06.model.Booking">
+		SELECT
+			`id`
+			,`name`
+			,`headcount`
+			,`day`
+			,`date`
+			,`phoneNumber`
+			,`state`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`booking`
+		WHERE
+			`name` = #{name}
+		AND 
+			`phoneNumber` = #{phoneNumber}
 	</select>
 </mapper>

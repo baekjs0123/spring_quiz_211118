@@ -3,4 +3,10 @@
 header {height: 100px;}
 .menu {height: 40px; background-color:#E3871F;}
 .booking {margin:auto; width: 400px;}
+.reserve {height:250px;}
+.reserve .real-time-reserved {background-color:#B1520F;}
+.reserve .confirm {background-color: #CF6317;}
+.input-form {width:230px; height:30px; margin-left:10px;}
+.reserve .inquiry {background-color:#B1520F;}
+.reserve-confirm {color:#fff; font-size: 25px; }
 footer {height: 100px;}

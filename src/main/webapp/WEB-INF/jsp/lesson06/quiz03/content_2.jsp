@@ -28,3 +28,94 @@
 		<input type="button" id="bookingBtn" class="btn btn-warning w-100" value="예약하기">
 	</div>
 </section>
+<script>
+$(document).ready(function() {
+	$('#date').datepicker({
+		dateFormat: "yy-mm-dd"
+        , minDate: 0
+	});
+
+	$('#bookingBtn').on('click', function(e) {
+		//alert("예약하기");
+		let name = $('#name').val().trim();
+		let date = $('#date').val().trim();
+		let day = $('#day').val().trim();
+		let headcount = $('#headcount').val().trim();
+		let phoneNumber = $('#phoneNumber').val().trim();
+		
+		if (name == '') {
+			alert("이름을 입력하세요.");
+			return;
+		} else if (date == '') {
+			alert("예약날짜를 입력하세요.");
+			return;
+		} else if (day == '') {
+			alert("숙박일수를 입력하세요.");
+			return;
+		} else if (headcount == '') {
+			alert("숙박인원을 입력하세요.");
+			return;
+		} else if (phoneNumber == '') {
+			alert("전화번호를 입력하세요.");
+			return;
+		}
+		
+		$.ajax({
+			type:"post"
+			, url:"/lesson06/quiz03/check_duplication_date"
+			, data: {"date":date}
+			, async : false
+			, success: function(data) {
+				if (data.result) { 
+					// 중복일 때
+					let state = "대기중";
+					$.ajax({
+						type:"post"
+						, url:"/lesson06/quiz03/add_booking"
+						, data: {
+							"name":name,
+							"date":date,
+							"day":day,
+							"headcount":headcount,
+							"phoneNumber":phoneNumber,
+							"state":state}
+						, success: function(data) {
+							if(data.result == "success") {
+								alert("예약대기가 완료되었습니다.")
+								location.reload();
+							} else {
+								alert(data.errorMessage);
+							}
+						}
+					});
+				} else {
+					// 중복 아닐 때
+					let state = "확정";
+					$.ajax({
+						type:"post"
+						, url:"/lesson06/quiz03/add_booking"
+						, data: {
+							"name":name,
+							"date":date,
+							"day":day,
+							"headcount":headcount,
+							"phoneNumber":phoneNumber,
+							"state":state}
+						, success: function(data) {
+							if(data.result == "success") {
+								alert("예약이 완료되었습니다.")
+								location.reload();
+							} else {
+								alert(data.errorMessage);
+							}
+						}
+					});
+				}
+			}
+			, error: function(e) {
+				alert("예약에 실패했습니다. 관리자에게 문의해주세요.");
+			}
+		});
+	});
+});
+</script>

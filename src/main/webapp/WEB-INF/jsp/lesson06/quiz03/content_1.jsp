@@ -42,3 +42,27 @@
 		</tbody>
 	</table>
 </section>
+<script>
+$(document).ready(function() {
+	$('.delete-btn').on('click', function() {
+		//alert("삭제하기");
+		let id = $(this).data("booking-id");
+		
+		$.ajax({
+			type:"post"
+			, url:"/lesson06/quiz03/delete_booking"
+			, data: {"id":id}
+			, success: function(data) {
+				if(data.result == "success") {
+					location.reload();
+				} else {
+					alert(data.errorMessage);
+				}
+			}
+			, error: function(e) {
+				alert("삭제하는데 실패했습니다. 관리자에게 문의해주세요.");
+			}
+		});
+	});
+});
+</script>

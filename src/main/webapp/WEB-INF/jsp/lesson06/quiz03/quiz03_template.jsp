@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,32 +16,18 @@
 	<div class="container">
 		<jsp:include page="header.jsp" />
 		<jsp:include page="menu.jsp" />
-		<jsp:include page="content_1.jsp" />
+		<c:choose>
+			<c:when test="${page eq 'quiz03/1'}">
+				<jsp:include page="content_1.jsp" />
+			</c:when>
+			<c:when test="${page eq 'quiz03/2'}">
+				<jsp:include page="content_2.jsp" />
+			</c:when>
+			<c:when test="${page eq 'quiz03/3'}">
+				<jsp:include page="content_3.jsp" />
+			</c:when>
+		</c:choose>
 		<jsp:include page="footer.jsp" />
 	</div>
-<script>
-$(document).ready(function() {
-	$('.delete-btn').on('click', function() {
-		//alert("삭제하기");
-		let id = $(this).data("booking-id");
-		
-		$.ajax({
-			type:"post"
-			, url:"/lesson06/quiz03/delete_booking"
-			, data: {"id":id}
-			, success: function(data) {
-				if(data.result == "success") {
-					location.reload();
-				} else {
-					alert(data.errorMessage);
-				}
-			}
-			, error: function(e) {
-				alert("삭제하는데 실패했습니다. 관리자에게 문의해주세요.");
-			}
-		});
-	});
-});
-</script>
 </body>
 </html>

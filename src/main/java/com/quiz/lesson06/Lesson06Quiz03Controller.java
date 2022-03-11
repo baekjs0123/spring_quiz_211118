@@ -1,5 +1,7 @@
 package com.quiz.lesson06;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -122,8 +124,12 @@ public class Lesson06Quiz03Controller {
 		if (bookingCheck == null) { //중복아님
 			result.put("result", false);
 		} else {
+			DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			String date = format.format(bookingCheck.getDate());
+			
 			result.put("result", true);
 			result.put("bookingCheck", bookingCheck);
+			result.put("date", date);
 		}
 		
 		return result;

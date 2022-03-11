@@ -41,7 +41,7 @@
 <script>
 	$(document).ready(function() {
 		$('#inquiryBtn').on('click', function() {
-			alert("조회하기");
+			//alert("조회하기");
 			let name = $('#name').val().trim();
 			let phoneNumber = $('#phoneNumber').val().trim();
 			
@@ -60,11 +60,11 @@
 				, success: function(data) {
 					if (data.result) {
 						alert("이름 : " + data.bookingCheck.name + 
-								"\n날짜 : " + data.bookingCheck.date +
+								"\n날짜 : " + data.date +
 								"\n일수 : " + data.bookingCheck.day +
 								"\n인원 : " + data.bookingCheck.headcount +
 								"\n상태 : " + data.bookingCheck.state);
-					} else (data.result) {
+					} else {
 						alert("예약 내역이 없습니다");
 					}
 				}

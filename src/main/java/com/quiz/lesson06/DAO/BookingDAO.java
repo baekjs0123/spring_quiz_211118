@@ -23,7 +23,7 @@ public interface BookingDAO {
 	
 	public Booking selectBookingByDate(String date);
 	
-	public Booking selectBookingByNameByphoneNumber(
+	public Booking selectBookingByNamePhoneNumber(
 			@Param("name") String name,
 			@Param("phoneNumber") String phoneNumber);
 }

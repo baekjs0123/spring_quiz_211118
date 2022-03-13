@@ -19,6 +19,8 @@ public class StoreController {
 
 	@Autowired
 	private StoreBO storeBO;
+	
+	@Autowired
 	private ReviewBO reviewBO;
 	
 	@RequestMapping("/storeList")
@@ -29,9 +31,13 @@ public class StoreController {
 	}
 	
 	@RequestMapping("/reviews")
-	public String reviewList(@RequestParam("storeName") String storeName, Model model) {
-		List<Review> reviewList = reviewBO.getReviewList();
+	public String reviewList(
+			@RequestParam("storeId") int storeId,
+			@RequestParam("storeName") String storeName,
+			Model model) {
+		List<Review> reviewList = reviewBO.getReviewByStoreId(storeId);
 		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("storeName", storeName);
 		return "lesson05/reviewList";
 	}
 }

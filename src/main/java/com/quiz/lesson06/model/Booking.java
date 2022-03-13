@@ -2,6 +2,8 @@ package com.quiz.lesson06.model;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Booking {
 
 	private int id;
@@ -9,6 +11,7 @@ public class Booking {
 	private int headcount;
 	private int day;
 	private Date date;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private String phoneNumber;
 	private String state;
 	private Date createdAt;

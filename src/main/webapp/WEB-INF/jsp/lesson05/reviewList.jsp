@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,43 +20,47 @@
 				<h1 class="display-4 text-white">배탈의 민족</h1>
 			</div>
 			<div class="header-bottom d-flex align-items-center">
-				<span class="display-3">${reviewList.storeName}</span>
+				<span class="display-3">${storeName} - 리뷰</span>
 			</div>
 		</header>
 		<div class="contents">
-			<c:forEach items="${reviewList}" var="review">
-					<div class="store form-control mb-3 border border-3 border-info">
-						<span class="font-weight-bold mt-3">${review.userName}</span>
-						<c:choose>
-							<c:when test="${review.point eq 0}">
-								<img src="/image/star_empty.jpg" alt="별점">
-								<img src="/image/star_empty.jpg" alt="별점">
-								<img src="/image/star_empty.jpg" alt="별점">
-								<img src="/image/star_empty.jpg" alt="별점">
-								<img src="/image/star_empty.jpg" alt="별점">
-							</c:when>
-							<c:when test="${review.point eq 0.5}">
-								<img src="/image/star_half.jpg" alt="별점">
-								<img src="/image/star_empty.jpg" alt="별점">
-								<img src="/image/star_empty.jpg" alt="별점">
-								<img src="/image/star_empty.jpg" alt="별점">
-								<img src="/image/star_empty.jpg" alt="별점">
-							</c:when>
-							<c:when test="${review.point eq 1}">
-								<img src="/image/star_fill.jpg" alt="별점">
-								<img src="/image/star_empty.jpg" alt="별점">
-								<img src="/image/star_empty.jpg" alt="별점">
-								<img src="/image/star_empty.jpg" alt="별점">
-								<img src="/image/star_empty.jpg" alt="별점">
-							</c:when>
-						</c:choose>
-						<h6>${review.createdAt}</h6>
-						<h5>${review.review}</h5>
-						<div class="bg-secondary">
-							${review.menu}
+			<c:if test="${empty reviewList}">
+				<div class="display-4 font-weight-bold ml-5">작성된 리뷰가 없습니다.</div>
+			</c:if>
+			<c:if test="${not empty reviewList}">
+				<c:forEach items="${reviewList}" var="review">
+						<div class="store form-control mb-3 border border-3 border-info p-3">
+							<div class="d-flex">
+								<h5 class="font-weight-bold text-dark">${review.userName}</h5>
+								<div class="d-inline ml-2">
+									<c:set var="point" value="${review.point}" />
+									<c:forEach begin="1" end="5">
+										<c:choose>
+											<c:when test="${point > 0.5}">
+												<img src="/image/review/star_fill.png" alt="별 한개" width="20px">
+												<c:set var="point" value="${point - 1}"/>
+											</c:when>
+											<c:when test="${point == 0.5}">
+												<img src="/image/review/star_half.png" alt="별 반개" width="20px">
+												<c:set var="point" value="${point - 0.5}"/>
+											</c:when>
+											<c:when test="${point == 0}">
+												<img src="/image/review/star_empty.png" alt="빈 별" width="20px">
+											</c:when>
+										</c:choose>
+									</c:forEach>
+								</div>
+							</div>
+							<div class="mt-2 mb-2">
+								<h6 class="text-secondary"><fmt:formatDate value="${review.createdAt}" pattern="yyyy년 M월 d일"/></h6>
+							</div>
+							<h5 class="text-dark mb-3">${review.review}</h5>
+							<span class="menu-box rounded p-1">
+								${review.menu}
+							</span>
 						</div>
-					</div>
-			</c:forEach>
+				</c:forEach>
+			</c:if>
 		</div>
 		<hr>
 		<footer class="footer">

@@ -1,8 +1,12 @@
 @charset "UTF-8";
 #wrap {width: 900px; height: 1200px; margin: auto;}
-.header {height: 300px;}
-.header .header-top {height: 150px;}
+.header {height: 280px;}
+.header .header-top {height: 130px;}
 .header .header-bottom {height: 150px;}
-a:hover { text-decoration:none;}
-.menu .store {height: 150px;}
+a {text-decoration:none; color:#000;}
+a:hover {text-decoration:none; color:#000;}
+.store-box {height: 150px;}
+.store-box:hover {background-color:#E6FAFD;}
 .footer {height: 100px;}
+
+.menu-box {background-color:#D2D3D3;}

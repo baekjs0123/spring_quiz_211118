@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +24,7 @@ public class Lesson06Quiz03Controller {
 	@Autowired
 	private BookingBO bookingBO;
 	
+	// 예약목록 화면
 	@RequestMapping("/lesson06/quiz03/1")
 	public String bookingListView(Model model) {
 		
@@ -35,24 +37,29 @@ public class Lesson06Quiz03Controller {
 		return "lesson06/quiz03/quiz03_template";
 	}
 	
+	// 예약 삭제하기 - ajax 요청
 	@ResponseBody
-	@PostMapping("/lesson06/quiz03/delete_booking")
-	public Map<String, String> deleteBooking(
+	@DeleteMapping("/lesson06/quiz03/delete_booking")
+	public Map<String, Object> deleteBooking(
 			@RequestParam("id") int id) {
 		
-		Map<String, String> result = new HashMap<>();
+		Map<String, Object> result = new HashMap<>();
+		// delete DB
+		int count = bookingBO.deleteBookingById(id);
 		
-		int row = bookingBO.deleteBookingById(id);
-		if (row > 0) {
+		if (count > 0) {
 			result.put("result", "success");
+			result.put("result_code", 1);
 		} else {
 			result.put("result", "error");
-			result.put("errorMessage", "삭제하는데 실패했습니다.");
+			result.put("result_code", 500);
+			result.put("error_message", "삭제하는데 실패했습니다.");
 			
 		}
 		return result;
 	}
 	
+	// 예약하기 화면
 	@RequestMapping("/lesson06/quiz03/2")
 	public String booking(Model model) {
 		
@@ -65,6 +72,7 @@ public class Lesson06Quiz03Controller {
 		return "lesson06/quiz03/quiz03_template";
 	}
 	
+	// 예약하기(date 중복확인) - ajax 호출
 	@ResponseBody
 	@PostMapping("/lesson06/quiz03/check_duplication_date")
 	public Map<String, Boolean> checkDuplicationDate(
@@ -82,9 +90,10 @@ public class Lesson06Quiz03Controller {
 		return result;
 	}
 	
+	// 예약하기 - ajax 호출
 	@ResponseBody
 	@PostMapping("/lesson06/quiz03/add_booking")
-	public Map<String, String> addBooking(
+	public Map<String, Object> addBooking(
 			@RequestParam("name") String name,
 			@RequestParam("date") String date,
 			@RequestParam("day") int day,
@@ -92,10 +101,11 @@ public class Lesson06Quiz03Controller {
 			@RequestParam("phoneNumber") String phoneNumber,
 			@RequestParam("state") String state) {
 		
-		bookingBO.addBooking(name, date, day, headcount, phoneNumber, state);
-		
-		Map<String, String> result = new HashMap<>();
+		Map<String, Object> result = new HashMap<>();
 		result.put("result", "success");
+		
+		// DB insert
+		bookingBO.addBooking(name, date, day, headcount, phoneNumber, state);
 		
 		return result;
 	}
@@ -119,7 +129,7 @@ public class Lesson06Quiz03Controller {
 			@RequestParam("phoneNumber") String phoneNumber) {
 		
 		Map<String, Object> result = new HashMap<>();
-		Booking bookingCheck = bookingBO.getBookingByNameByphoneNumber(name, phoneNumber);
+		Booking bookingCheck = bookingBO.getBookingByNamePhoneNumber(name, phoneNumber);
 		
 		if (bookingCheck == null) { //중복아님
 			result.put("result", false);

@@ -25,7 +25,7 @@
 			<label for="phoneNumber">전화번호</label>
 			<input type="text" id="phoneNumber" class="form-control" placeholder="ex) 010-1234-5678">
 		</div>
-		<input type="button" id="bookingBtn" class="btn btn-warning w-100" value="예약하기">
+		<input type="button" id="reservationBtn" class="btn btn-warning w-100" value="예약하기">
 	</div>
 </section>
 <script>
@@ -35,7 +35,7 @@ $(document).ready(function() {
         , minDate: 0
 	});
 
-	$('#bookingBtn').on('click', function(e) {
+	$('#reservationBtn').on('click', function(e) {
 		//alert("예약하기");
 		let name = $('#name').val().trim();
 		let date = $('#date').val().trim();
@@ -52,8 +52,14 @@ $(document).ready(function() {
 		} else if (day == '') {
 			alert("숙박일수를 입력하세요.");
 			return;
+		} else if (isNaN(day)) {
+			alert("숙박일수는 숫자만 입력가능합니다..");
+			return;
 		} else if (headcount == '') {
 			alert("숙박인원을 입력하세요.");
+			return;
+		} else if (isNaN(headcount)) {
+			alert("숙박인원은 숫자만 입력가능합니다..");
 			return;
 		} else if (phoneNumber == '') {
 			alert("전화번호를 입력하세요.");
@@ -82,9 +88,9 @@ $(document).ready(function() {
 						, success: function(data) {
 							if(data.result == "success") {
 								alert("예약대기가 완료되었습니다.")
-								location.reload();
+								location.href="/lesson06/quiz03/1";
 							} else {
-								alert(data.errorMessage);
+								alert(data.error_message);
 							}
 						}
 					});
@@ -106,7 +112,7 @@ $(document).ready(function() {
 								alert("예약이 완료되었습니다.")
 								location.reload();
 							} else {
-								alert(data.errorMessage);
+								alert(data.error_message);
 							}
 						}
 					});

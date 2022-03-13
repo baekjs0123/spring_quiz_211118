@@ -3,7 +3,7 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="com.quiz.lesson05.dao.ReviewDAO">
-	<select id="selectReviewList" resultType="com.quiz.lesson05.model.Review">
+	<select id="selectReviewByStoreId" parameterType="int" resultType="com.quiz.lesson05.model.Review">
 		SELECT
 			`id`
 			,`storeId`
@@ -17,5 +17,6 @@
 			`new_review`
 		WHERE
 			`storeId` = #{storeId}
+		ORDER BY `createdAt` desc
 	</select>
 </mapper>

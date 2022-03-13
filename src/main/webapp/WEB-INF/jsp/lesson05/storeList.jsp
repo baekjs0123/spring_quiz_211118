@@ -15,8 +15,8 @@
 <body>
 	<div id="wrap">
 		<header class="header">
-			<div class="header-top d-flex align-items-center bg-info">
-				<h1 class="display-4 text-white">배탈의 민족</h1>
+			<div class="header-top d-flex align-items-center bg-info pl-4">
+				<h1 class="text-white font-weight-bold">배탈의 민족</h1>
 			</div>
 			<div class="header-bottom d-flex align-items-center">
 				<span class="display-3">우리동네 가게</span>
@@ -25,10 +25,10 @@
 		<div class="contents">
 			<c:forEach items="${storeList}" var="store">
 				<a href="/lesson05/reviews?storeId=${store.id}&storeName=${store.name}">
-					<div class="store form-control mb-3 border border-info">
-						<h2 class="font-weight-bold mt-3">${store.name}</h3>
-						<h5>전화번호 : ${store.phoneNumber}</h5>
-						<h5>주소 : ${store.address}</h5>
+					<div class="store-box form-control mb-3 border border-info">
+						<h2 class="font-weight-bold mt-3 text-dark">${store.name}</h3>
+						<h5 class="text-dark">전화번호 : ${store.phoneNumber}</h5>
+						<h5 class="text-dark">주소 : ${store.address}</h5>
 					</div>
 				</a>
 			</c:forEach>

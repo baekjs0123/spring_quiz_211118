@@ -19,24 +19,29 @@
 			</tr>
 		</thead>
 		<tbody>
-		<c:forEach items="${bookingList}" var="bookingList">
+		<c:forEach items="${bookingList}" var="booking">
 			<tr>
-				<td>${bookingList.name}</td>
-				<td><fmt:formatDate value="${bookingList.date}" pattern="yyyy년 M월 d일" /> </td>
-				<td>${bookingList.day}</td>
-				<td>${bookingList.headcount}</td>
-				<td>${bookingList.phoneNumber}</td>
+				<td>${booking.name}</td>
+				<td><fmt:formatDate value="${booking.date}" pattern="yyyy년 M월 d일" /></td>
+				<td>${booking.day}</td>
+				<td>${booking.headcount}</td>
+				<td>${booking.phoneNumber}</td>
 				<td>
 					<c:choose>
-						<c:when test="${bookingList.state eq '대기중'}">
-							<span class="text-info">${bookingList.state}</span>
+						<c:when test="${booking.state eq '확정'}">
+							<span class="text-success">${booking.state}</span>
 						</c:when>
-						<c:when test="${bookingList.state eq '확정'}">
-							<span class="text-success">${bookingList.state}</span>
+						<c:when test="${booking.state eq '대기중'}">
+							<span class="text-info">${booking.state}</span>
+						</c:when>
+						<c:when test="${booking.state eq '취소'}">
+							<span class="text-danger">${booking.state}</span>
 						</c:when>
 					</c:choose>
 				</td>
-				<td><button type="button" class="delete-btn btn btn-danger" data-booking-id="${bookingList.id}">삭제</button></td>
+				<td>
+					<button type="button" class="delete-btn btn btn-danger" data-booking-id="${booking.id}">삭제</button>
+				</td>
 			</tr>
 		</c:forEach>
 		</tbody>
@@ -49,14 +54,18 @@ $(document).ready(function() {
 		let id = $(this).data("booking-id");
 		
 		$.ajax({
-			type:"post"
+			// request
+			type:"DELETE"
 			, url:"/lesson06/quiz03/delete_booking"
 			, data: {"id":id}
+			
+			// response
 			, success: function(data) {
-				if(data.result == "success") {
+				if (data.result_code == 1) {
+					alert("삭제되었습니다.");
 					location.reload();
 				} else {
-					alert(data.errorMessage);
+					alert(data.error_message);
 				}
 			}
 			, error: function(e) {

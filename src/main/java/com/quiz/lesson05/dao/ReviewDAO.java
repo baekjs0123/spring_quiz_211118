@@ -9,5 +9,5 @@ import com.quiz.lesson05.model.Review;
 @Repository
 public interface ReviewDAO {
 
-	public List<Review> selectReviewList();
+	public List<Review> selectReviewByStoreId(int storeId);
 }

@@ -14,8 +14,7 @@ public class ReviewBO {
 	@Autowired
 	private ReviewDAO reviewDAO;
 	
-	public List<Review> getReviewList() {
-		List<Review> reviewList = reviewDAO.selectReviewList();
-		return reviewList;
+	public List<Review> getReviewByStoreId(int storeId) {
+		return reviewDAO.selectReviewByStoreId(storeId);
 	}
 }

@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <section id="contents">
 	<div class="banner">
-		<img src="/image/test06_banner1.jpg" alt="배너이미지" width="1110px" height="500px" id="bannerImage">
+		<img src="/image/banner1.jpg" alt="배너이미지" width="1110px" height="500px" id="bannerImage">
 	</div>
 </section>
 <section class="reserve bg-primary d-flex">
@@ -40,6 +40,18 @@
 </section>
 <script>
 	$(document).ready(function() {
+		// 배너 움직이기
+		let bannerList = ['/image/banner1.jpg', '/image/banner2.jpg', '/image/banner3.jpg', '/image/banner4.jpg'];
+        let currentIndex = 1;
+        setInterval(function() {
+            $('#bannerImage').attr('src', bannerList[currentIndex]);
+            currentIndex++;
+
+            if (currentIndex == bannerList.length) {
+                currentIndex = 0;
+            }
+        }, 3000);
+		
 		$('#inquiryBtn').on('click', function() {
 			//alert("조회하기");
 			let name = $('#name').val().trim();
@@ -51,21 +63,24 @@
 			} else if (phoneNumber == '') {
 				alert("휴대전화 번호를 입력하세요.");
 				return;
+			} else if (phoneNumber.startsWith("010") == false) {
+				alert("010으로 시작하는 번호만 입력가능합니다.");
+				return;
 			}
 			
 			$.ajax({
 				type:"post"
-				, url:"/lesson06/quiz03/check_duplication_name_phoneNumber"
+				, url:"/lesson06/quiz03/search_reservation"
 				, data: {"name":name, "phoneNumber":phoneNumber}
 				, success: function(data) {
-					if (data.result) {
-						alert("이름 : " + data.bookingCheck.name + 
-								"\n날짜 : " + data.date +
-								"\n일수 : " + data.bookingCheck.day +
-								"\n인원 : " + data.bookingCheck.headcount +
-								"\n상태 : " + data.bookingCheck.state);
+					if (data.result == "success") {
+						alert("이름 : " + data.bookingCheck.name
+								+ "\n날짜 : " + data.date // data.bookingCheck.date.slice(0, 10)도 가능 2022-03-14T
+								+ "\n일수 : " + data.bookingCheck.day
+								+ "\n인원 : " + data.bookingCheck.headcount
+								+ "\n상태 : " + data.bookingCheck.state);
 					} else {
-						alert("예약 내역이 없습니다");
+						alert(data.errorMessage);
 					}
 				}
 				, error: function(e) {
@@ -73,16 +88,5 @@
 				}
 			});
 		});
-		
-		var bannerSrcArr = ['/image/test06_banner1.jpg', '/image/test06_banner2.jpg', '/image/test06_banner3.jpg', '/image/test06_banner4.jpg'];
-        var currentIndex = 0;
-        setInterval(function() {
-            $('#bannerImage').attr('src', bannerSrcArr[currentIndex]);
-            currentIndex++;
-
-            if (currentIndex > bannerSrcArr.length) {
-                currentIndex = 0;
-            }
-        }, 3000);
 	});
 </script>

@@ -122,24 +122,28 @@ public class Lesson06Quiz03Controller {
 		return "lesson06/quiz03/quiz03_template";
 	}
 	
+	// 예약 조회 기능 - ajax
 	@ResponseBody
-	@PostMapping("/lesson06/quiz03/check_duplication_name_phoneNumber")
-	public Map<String, Object> checkDuplicationByNameByphoneNumber(
+	@PostMapping("/lesson06/quiz03/search_reservation")
+	public Map<String, Object> searchReservation(
 			@RequestParam("name") String name,
 			@RequestParam("phoneNumber") String phoneNumber) {
 		
 		Map<String, Object> result = new HashMap<>();
-		Booking bookingCheck = bookingBO.getBookingByNamePhoneNumber(name, phoneNumber);
-		
-		if (bookingCheck == null) { //중복아님
-			result.put("result", false);
-		} else {
+
+		// select DB
+		Booking bookingCheck = bookingBO.getBookingByNameAndPhoneNumber(name, phoneNumber);
+			// {"result":"success", "booking":{"id":13, "name":"예약자"....}}
+		if (bookingCheck != null) {
 			DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			String date = format.format(bookingCheck.getDate());
 			
-			result.put("result", true);
+			result.put("result", "success");
 			result.put("bookingCheck", bookingCheck);
 			result.put("date", date);
+		} else {
+			result.put("result", "error");
+			result.put("errorMessage", "예약 정보가 없습니다.");
 		}
 		
 		return result;

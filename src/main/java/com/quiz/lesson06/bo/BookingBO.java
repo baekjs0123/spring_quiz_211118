@@ -32,8 +32,8 @@ public class BookingBO {
 		return bookingDAO.selectBookingByDate(date);
 	}
 	
-	public Booking getBookingByNamePhoneNumber(
+	public Booking getBookingByNameAndPhoneNumber(
 			String name, String phoneNumber) {
-		return bookingDAO.selectBookingByNamePhoneNumber(name, phoneNumber);
+		return bookingDAO.selectBookingByNameAndPhoneNumber(name, phoneNumber);
 	}
 }

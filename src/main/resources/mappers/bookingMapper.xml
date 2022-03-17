@@ -65,7 +65,7 @@
 		WHERE
 			`date` = #{date}
 	</select>
-	<select id="selectBookingByNamePhoneNumber" parameterType="map" resultType="com.quiz.lesson06.model.Booking">
+	<select id="selectBookingByNameAndPhoneNumber" parameterType="map" resultType="com.quiz.lesson06.model.Booking">
 		SELECT
 			`id`
 			,`name`
@@ -80,7 +80,6 @@
 			`booking`
 		WHERE
 			`name` = #{name}
-		AND 
-			`phoneNumber` = #{phoneNumber}
+			AND `phoneNumber` = #{phoneNumber}
 	</select>
 </mapper>
